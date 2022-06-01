@@ -1,4 +1,4 @@
-import {take, delay, takeLatest, put, spawn, debounce, fork, call} from 'redux-saga/effects';
+import {take, delay, retry, takeLatest, put, spawn, debounce, fork, call} from 'redux-saga/effects';
 import {searchSkills} from "../api/search";
 import {
     dataReducer_search_success,
@@ -58,7 +58,11 @@ function *handleSearch(action) {
             const ms = 100;         // Задержка по времени
             yield delay(ms);
 
-            data = yield call(searchSkills, action.payload.search);       // call - вызов любой функции (блокирующий)
+//            data = yield call(searchSkills, action.payload.search);       // call - вызов любой функции (блокирующий)
+
+            const retryCount = 3;
+            const retryDelay = 500;      // in ms
+            data = yield retry(retryCount, retryDelay, searchSkills, action.payload.search);
         }
 
         yield put(

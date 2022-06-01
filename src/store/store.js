@@ -16,7 +16,7 @@ const store = configureStore({
     middleware: [sagaMiddleware]
 });
 
-sagaMiddleware.run(sagas)
+sagaMiddleware.run(sagas);
 
 export default store;
 
