@@ -1,5 +1,5 @@
 import {spawn} from 'redux-saga/effects';
-import {watchSearch} from "./search";
+import {watchSearch} from "./searchSaga";
 
 
 // Коренная sagas - необязательная
